@@ -4,9 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(React.createElement(() => {
+ const [s, ss] = React.useState<number | null>(null);
+ const r = React.useRef(222);
+ React.useEffect(() => { setInterval(() => { r.current = r.current + 1; ss(r.current) }, 500)}, []);
+ return (<div>c: {s as number}</div>);
+}), document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();
